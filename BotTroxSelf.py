@@ -2,28 +2,31 @@
 
 import LINETCR
 from LINETCR.lib.curve.ttypes import *
+from io import StringIO
 from datetime import datetime
-import time,random,sys,json,codecs,threading,glob,re,os,subprocess
+import time,random,sys,json,codecs,threading,glob,sys
+import re,string,os
+import os.path,sys,urllib,shutil,subprocess
 
 cl = LINETCR.LINE()
-cl.login(token="Eqek1vC7KLnK4jsWnYb0.fGIUiExEjuE1/OChSHYIia.I+U46H+FbaNeyUFj6q8tYpNBQ7cKfoHlCQ972Cv50fg=")
+cl.login(qr=True)
 cl.loginResult()
 
 ki = LINETCR.LINE()
-ki.login(token="Eqt4hxAsQtv5a4lG4Pb2.o8LSrfCelHJhhggYpY3ECG.89tTjn7ar5yjjSmJ264c867m9A4BWxxm3qA6WDPfuQ0=")
+ki.login(qr=True)
 ki.loginResult()
 
 ki2 = LINETCR.LINE()
-ki2.login(token="EqsBVdQi8OKTh3j6Mkx5.hSHvpJH1bE2GB8InsSg0vq.2ssZtwAkffmtOy9zrJCx0F8Gz1oV17cMQqtHU3B6fYY=")
+ki2.login(qr=True)
 ki2.loginResult()
 
-print "login success Trox"
+print "🇲🇨⊰์◉⊱B❂TTR❂X B❂T⊰์◉⊱🇲🇨\nSELAMAT MENGGUNAKAN"
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 helpMessage ="""╔═════════════
 ║𖤓≛≛≛≛≛≛≛≛≛≛≛≛≛𖤓
-║       ✰BotTrox✰
+║⊰์◉⊱B❂TTR❂X B❂T⊰์◉⊱
 ║𖤓≛≛≛≛≛≛≛≛≛≛≛≛≛𖤓
 ║╔════════════
 ║╠[1]Status
@@ -63,7 +66,7 @@ helpMessage ="""╔═════════════
 ║║★And More★
 ║╚════════════
 ║𖤓≛≛≛≛≛≛≛≛≛≛≛≛≛𖤓
-║     BotTrox SelfBot
+║⊰์◉⊱B❂TTR❂X B❂T⊰์◉⊱
     Jika berminat pm 
  http://line.me/ti/p/up3NLjmK17
 ║𖤓≛≛≛≛≛≛≛≛≛≛≛≛≛𖤓
@@ -161,35 +164,13 @@ def bot(op):
 
         #------Protect Group Kick start------#
         if op.type == 11:
-          if wait["Protectgr"] == True:
-            if cl.getGroup(op.param1).preventJoinByTicket == False:
-              if op.param2 in Bots:
-                pass
-              elif op.param2 in owner:
-                pass
-              elif op.param2 in admin:
-                pass
-              else:
-              	try:
-                	cl.sendText(op.param1,cl.getContact(op.param2).displayName + "Jangan Buka Kode QR Kk")
-                	cl.kickoutFromGroup(op.param1,[op.param2])
-                	X = cl.getGroup(op.param1)
-                	X.preventJoinByTicket = True
-                	cl.updateGroup(X)
-                	cl.sendText(op.param1,cl.getContact(op.param2).displayName + "\n" + "Kami Masukin Kedalam Blacklis Boss")
-                	wait["blacklist"][op.param2] = True
-                	f=codecs.open('st2__b.json','w','utf-8')
-                	json.dump(wait["blacklist"], f, sort_keys=True, indent=4,ensure_ascii=False)
-                except:
-                	random.choice(KAC).sendText(op.param1,random.choice(KAC).getContact(op.param2).displayName + "Jangan Buka Kode QR Njiiir")
-                	random.choice(KAC).kickoutFromGroup(op.param1,[op.param2])
-                	X = random.choice(KAC).getGroup(op.param1)
-                	X.preventJoinByTicket = True
-                	random.choice(KAC).updateGroup(X)
-                	random.choice(KAC).sendText(op.param1,random.choice(KAC).getContact(op.param2).displayName + "\n" + "Kami Masukin Kedalam Blacklis Boss")
-                	wait["blacklist"][op.param2] = True
-                	f=codecs.open('st2__b.json','w','utf-8')
-                	json.dump(wait["blacklist"], f, sort_keys=True, indent=4,ensure_ascii=False)
+           if wait["Protectgr"] == True:
+               if op.param2 not in Bots and admin:
+                   G = random.choice(KAC).getGroup(op.param1)
+                   G.preventJoinByTicket = True
+                   #random.choice(KAC).kickoutFromGroup(op.param1,[op.param2])
+                   random.choice(KAC).updateGroup(G)
+                   random.choice(KAC).sendText(op.param1,random.choice(KAC).getContact(op.param2).displayName +  "Jangan Buka Kode QR Njiiir")
         #------Protect Group Kick finish-----#
 
         #------Cancel Invite User start------#
@@ -197,18 +178,18 @@ def bot(op):
           if wait["Protectcancl"] == True:
             group = cl.getGroup(op.param1)
             gMembMids = [contact.mid for contact in group.invitee]
-            if op.param2 not in Bots:
-              if op.param2 in Bots:
+            if op.param2 not in Bots + admin:
+              if op.param2 in Bots + admin:
                 pass
               else:
                 try:
                   cl.cancelGroupInvitation(op.param1, gMembMids)
-                  cl.sendText(op.param1, "Mau Invite Siapa Trox ??? \nJangan Sok Jadi Jagoan Deh Lu Njir.\nAdmin Bukan,Owner Juga Bukan\Kick Ah 😛")
-                  random.choice(KAC).kickoutFromGroup(op.param1,[op.param2])
+                  cl.sendText(op.param1, "Mau Invite Siapa Kaka ??? \nJangan Sok Jadi Jagoan Deh Lu Njir.\nAdmin Bukan,Owner Juga Bukan\njadi aku Cancel😛")
+                  #random.choice(KAC).kickoutFromGroup(op.param1,[op.param2])
                 except:
                   random.choice(KAC).cancelGroupInvitation(op.param1, gMembMids)
-                  random.choice(KAC).sendText(op.param1, "Mau Invite Siapa Trox ??? \nJangan Sok Jadi Jagoan Deh Lu Njir.\nAdmin Bukan,Owner Juga Bukan\Kick Ah 😛")
-                  random.choice(KAC).kickoutFromGroup(op.param1,[op.param2])
+                  random.choice(KAC).sendText(op.param1, "Mau Invite Siapa Kaka ??? \nJangan Sok Jadi Jagoan Deh Lu Njir.\nAdmin Bukan,Owner Juga Bukan\nJadi aku Cancel😛")
+                  #random.choice(KAC).kickoutFromGroup(op.param1,[op.param2])
         #------Cancel Invite User Finish------#
             
         if op.type == 13:
@@ -258,8 +239,8 @@ def bot(op):
         #------Joined User Kick start------#
         if op.type == 32: #Yang Cancel Invitan langsung ke kick
           if wait["Protectcancel"] == True:
-            if op.param2 not in Bots:
-              if op.param2 in Bots:
+            if op.param2 not in Bots + admin:
+              if op.param2 in Bots + admin:
                 pass
               elif op.param2 in admin:
                 pass
