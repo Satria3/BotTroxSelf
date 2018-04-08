@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 
-import LINETCR
-from LINETCR.lib.curve.ttypes import *
+import LIBETCR
+from LIBETCR.lib.curve.ttypes import *
 from io import StringIO
 from datetime import datetime
 import time,random,sys,json,codecs,threading,glob,sys
 import re,string,os
 import os.path,sys,urllib,shutil,subprocess
 
-cl = LINETCR.LINE()
+cl = LIBETCR.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
-ki = LINETCR.LINE()
+ki = LIBETCR.LINE()
 ki.login(qr=True)
 ki.loginResult()
 
-ki2 = LINETCR.LINE()
+ki2 = LIBETCR.LINE()
 ki2.login(qr=True)
 ki2.loginResult()
 
