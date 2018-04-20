@@ -8,7 +8,7 @@ import time,random,sys,json,codecs,threading,glob,sys
 import re,string,os
 import os.path,sys,urllib,shutil,subprocess
 
-cl = LIBETCR.LINE()
+cl = LIBETCR.LINE() #Akun utama kalian
 cl.login(qr=True)
 cl.loginResult()
 
@@ -486,38 +486,39 @@ def bot(op):
                 random.choice(KAC).inviteIntoGroup(msg.to,[midd])
     #--------------- SC Add Admin ---------
             elif "Admin add @" in msg.text:
-              print "[Command]Staff add executing"
-              _name = msg.text.replace("Admin add @","")
-              _nametarget = _name.rstrip('  ')
-              gs = cl.getGroup(msg.to)
-              gs = ki.getGroup(msg.to)
-              gs = ki2.getGroup(msg.to)
-              targets = []
-              for g in gs.members:
-                if _nametarget == g.displayName:
-                  targets.append(g.mid)
-              if targets == []:
-                random.choice(KAC).sendText(msg.to,"Contact not found")
-              else:
-                for target in targets:
-                  try:
-                    admin.append(target)
-                    cl.sendText(msg.to,"Admin Ditambahkan")
-                  except:
-                    pass
+              if msg.from_ in owner:
+                print "[Command]Staff add executing"
+                _name = msg.text.replace("Admin add @","")
+                _nametarget = _name.rstrip('  ')
+                gs = cl.getGroup(msg.to)
+                gs = ki.getGroup(msg.to)
+                gs = ki2.getGroup(msg.to)
+                targets = []
+                for g in gs.members:
+                    if _nametarget == g.displayName:
+                        targets.append(g.mid)
+                if targets == []:
+                   random.choice(KAC).sendText(msg.to,"Contact not found")
+                else:
+                   for target in targets:
+                        try:
+                            admin.append(target)
+                            cl.sendText(msg.to,"Admin Ditambahkan")
+                        except:
+                            pass
                 print "[Command]Staff add executed"
               else:
                 cl.sendText(msg.to,"Command denied.")
                 cl.sendText(msg.to,"Admin permission required.")
                 
             elif "Admin remove @" in msg.text:
+              if msg.from_ in owner:
                 print "[Command]Staff remove executing"
                 _name = msg.text.replace("Admin remove @","")
                 _nametarget = _name.rstrip('  ')
                 gs = cl.getGroup(msg.to)
                 gs = ki.getGroup(msg.to)
                 gs = ki2.getGroup(msg.to)
-                #gs = k1.getGroup(msg.to)
                 targets = []
                 for g in gs.members:
                     if _nametarget == g.displayName:
@@ -606,7 +607,7 @@ def bot(op):
                 jmlh = int(txt[2])
                 teks = msg.text.replace("Spam "+str(txt[1])+" "+str(jmlh)+ " ","")
                 tulisan = jmlh * (teks+"\n")
-                 @reno.a.w
+                 #@reno.a.w
                 if txt[1] == "on":
                     if jmlh <= 500:
                        for x in range(jmlh):
@@ -679,7 +680,7 @@ def bot(op):
                     else:
                         cl.sendText(msg.to,"Not for use less than group")
             elif msg.text in ["bot cancel","Bot cancel"]:
-            if msg.from_ in admin:
+              if msg.from_ in admin:
                 if msg.toType == 2:
                     G = ki.getGroup(msg.to)
                     if G.invitee is not None:
@@ -2096,7 +2097,7 @@ def autolike():
       if hasil['result']['posts'][zx]['postInfo']['liked'] == False:
         try:
           cl.like(hasil['result']['posts'][zx]['userInfo']['u3bc96c4457042e18c71c61b23f2dde72'],hasil['result']['posts'][zx]['postInfo']['postId'],likeType=1001)
-          cl.comment(hasil['result']['posts'][zx]['userInfo']['u3bc96c4457042e18c71c61b23f2dde72'],hasil['result']['posts'][zx]['postInfo']['postId'],"👉Auto Like by ⭐⭐Koplaxs⭐⭐👈\n\n™By ✰૦Ո૯ ƿɿ૯८૯ ら૯ՆԲც૦੮✰")
+          cl.comment(hasil['result']['posts'][zx]['userInfo']['u3bc96c4457042e18c71c61b23f2dde72'],hasil['result']['posts'][zx]['postInfo']['postId'],"👉Auto Like by ⭐⭐Koplaxs⭐⭐👈\n\n™By ✰⊰์◉⊱B❂TTR❂X B❂T⊰์◉⊱✰")
           ki.like(hasil['result']['posts'][zx]['userInfo']['u1ec8553e387505eda06fc88d4ac1b455'],hasil['result']['posts'][zx]['postInfo']['postId'],likeType=1001)
           ki.comment(hasil['result']['posts'][zx]['userInfo']['u1ec8553e387505eda06fc88d4ac1b455'],hasil['result']['posts'][zx]['postInfo']['postId'],"Aku Juga Ikutin Boss Aku Like Status Kamu Ka\n\n Like Back yah Ka 😊")
           ki2.like(hasil['result']['posts'][zx]['userInfo']['u362d3f3ca4594a2023b7ddbc5f306e6d'],hasil['result']['posts'][zx]['postInfo']['postId'],likeType=1001)
@@ -2107,9 +2108,9 @@ def autolike():
       else:
           print "Already Liked"
 time.sleep(0.01)
-thread3 = threading.Thread(target=autolike)
-thread3.daemon = True
-thread3.start()
+#thread3 = threading.Thread(target=autolike)
+#thread3.daemon = True
+#thread3.start()
 #--------------------
 def likePost():
     for zx in range(0,200):
@@ -2131,8 +2132,8 @@ def likePost():
 def nameUpdate():
     while True:
         try:
-       while a2():
-            pass
+      #while a2():
+           # pass
             if wait["clock"] == True:
                 now2 = datetime.now()
                 nowT = datetime.strftime(now2,"(%H:%M)")
