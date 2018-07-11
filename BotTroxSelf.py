@@ -9,15 +9,15 @@ import re,string,os
 import os.path,sys,urllib,shutil,subprocess
 
 cl = LIBETCR.LINE() #Akun utama kalian
-cl.login(qr=True)
+cl.login(token="EusMwAm94Scif8SDIzGf.8iwjWNoWviBoGD9rh68k3W.QCQc2E6f9L3Wn29oeEI2LulkNISax1xGvLpuCuLUEHU=")
 cl.loginResult()
 
 ki = LIBETCR.LINE()
-ki.login(qr=True)
+ki.login(token="EusMwAm94Scif8SDIzGf.8iwjWNoWviBoGD9rh68k3W.QCQc2E6f9L3Wn29oeEI2LulkNISax1xGvLpuCuLUEHU=")
 ki.loginResult()
 
 ki2 = LIBETCR.LINE()
-ki2.login(qr=True)
+ki2.login(token="EusMwAm94Scif8SDIzGf.8iwjWNoWviBoGD9rh68k3W.QCQc2E6f9L3Wn29oeEI2LulkNISax1xGvLpuCuLUEHU=")
 ki2.loginResult()
 
 print "🇲🇨⊰์◉⊱B❂TTR❂X B❂T⊰์◉⊱🇲🇨\nSELAMAT MENGGUNAKAN"
@@ -79,15 +79,15 @@ mid = cl.getProfile().mid
 kimid = ki.getProfile().mid
 ki2mid = ki2.getProfile().mid
 Bots=[mid,kimid,ki2mid]
-owner =["u1608ae21e5de2547b5fa8707b21ca220"]
-admin = ["u1608ae21e5de2547b5fa8707b21ca220"]
+owner =["u1608ae21e5de2547b5fa8707b21ca220","u5d4fcfac4328049c5c423847cf1f1341","u2eb3a27bb668226475a66c0780f9060c"]
+admin = ["u1608ae21e5de2547b5fa8707b21ca220","u5d4fcfac4328049c5c423847cf1f1341","u2eb3a27bb668226475a66c0780f9060c"]
 wait = {
     'contact':False,
     'autoJoin':True,
-    'autoCancel':{"on":True,"members":1},
+    'autoCancel':{"on":False,"members":1},
     'leaveRoom':True,
     'timeline':True,
-    'autoAdd':True,
+    'autoAdd':False,
     'message':"""тerima Kasih Sudah Menambahkan Aku Jadi Teman
 ||≫ Aku Ga Jawab PM Karna aq Cuma Bot ≪
 ||≫ BotTrox BOT≪
@@ -105,34 +105,45 @@ wait = {
     "clock":False,
     "cName":"",
     "blacklist":{},
+    "Sider":{},
+    "Tag":True,
     "wblacklist":False,
     "dblacklist":False,
-    "Protectgr":True,
+    "Protectgr":False,
     "Protectjoin":False,
-    "Protectcancl":True,
-    "Protectcancel":True,
-    "protectionOn":True,
-    "atjointicket":True
+    "Protectcancl":False,
+    "Protectcancel":False,
+    "protectionOn":False,
+    "atjointicket":False
     }
 
 wait2 = {
     'readPoint':{},
     'readMember':{},
     'setTime':{},
-    'ROM':{},
-    'copy':False,
-    'target':{},
-    'midsTarget':{}
+    'ROM':{}
     }
+
+settings = {
+    "simiSimi":{}
+    }
+    
+cctv = {
+    "cyduk":{},
+    "point":{},
+    "sidermem":{}
+}    
 
 setTime = {}
 setTime = wait2['setTime']
+mulai = time.time() 
 
-contact = cl.getProfile() 
-backup = cl.getProfile() 
-backup.dispalyName = contact.displayName 
-backup.statusMessage = contact.statusMessage
-backup.pictureStatus = contact.pictureStatus
+def waktu(secs):
+    mins, secs = divmod(secs,60)
+    hours, mins = divmod(mins,60)
+    day, hours = divmod(hours,24)
+    return '\n🇲🇨%02d hari🇲🇨\n🇲🇨%02d jam🇲🇨\n🇲🇨%02d menit🇲🇨\n🇲🇨%02d detik🇲🇨' % (day, hours, mins, secs) 
+
 
 def sendMessage(to, text, contentMetadata={}, contentType=0):
     mes = Message()
@@ -142,6 +153,29 @@ def sendMessage(to, text, contentMetadata={}, contentType=0):
     if to not in messageReq:
         messageReq[to] = -1
     messageReq[to] += 1
+
+def summon(to, nama):
+    aa = ""
+    bb = ""
+    strt = int(14)
+    akh = int(14)
+    nm = nama
+    for mm in nm:
+      akh = akh + 2
+      aa += """{"S":"""+json.dumps(str(strt))+""","E":"""+json.dumps(str(akh))+""","M":"""+json.dumps(mm)+"},"""
+      strt = strt + 6
+      akh = akh + 4
+      bb += "\xe2\x95\xa0 @x \n"
+    aa = (aa[:int(len(aa)-1)])
+    msg = Message()
+    msg.to = to
+    msg.text = "\xe2\x95\x94\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\n"+bb+"\xe2\x95\x9a\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90"
+    msg.contentMetadata ={'MENTION':'{"MENTIONEES":['+aa+']}','EMTVER':'4'}
+    print "[Command] Tag All"
+    try:
+       cl.sendMessage(msg)
+    except Exception as error:
+       print error
 
 def cms(string, commands): #/XXX, >XXX, ;XXX, ^XXX, %XXX, $XXX...
     tex = ["+","@","/",">",";","^","%","$","＾","サテラ:","サテラ:","サテラ：","サテラ："] 
@@ -328,7 +362,44 @@ def bot(op):
                   G.preventJoinByTicket = True
                   random.choice(KAC).updateGroup(G)
                   wait["blacklist"][op.param2] = True
-                  #--------------------------------                      
+#----------------------------------------------------------------------------
+
+
+            if wait["alwaysRead"] == True:
+                if msg.toType == 0:
+                    cl.sendChatChecked(msg.from_,msg.id)
+                else:
+                    cl.sendChatChecked(msg.to,msg.id)
+                    
+             
+        if op.type == 55:
+                try:
+                    if cctv['cyduk'][op.param1]==True:
+                        if op.param1 in cctv['point']:
+                            Name = cl.getContact(op.param2).displayName
+                            if Name in cctv['sidermem'][op.param1]:
+                                pass
+                            else:
+                                cctv['sidermem'][op.param1] += "\n• " + Name
+                                if " " in Name:
+                                    nick = Name.split(' ')
+                                    if len(nick) == 2:
+                                        cl.sendText(op.param1, "🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨\n""Haii " + "👉"+"@ " + nick[0] + " 👈" + "\nNgintip Aja Niih. . .\nChat Kek Idiih (-__-)   ")
+                                    else:
+                                        cl.sendText(op.param1,"🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨\n""Haii " + "👉 "+"@ " + nick[1] + " 👈" + "\nBetah Banget Jadi Penonton. . .\nChat Napa (-__-)   ")
+                                else:
+                                    cl.sendText(op.param1,"🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨\n""Haii " + "👉 "+"@ " + Name + " 👈" + "\nNgapain Kak Ngintip Aja???\nSini Gabung Chat...   ")
+                        else:
+                            pass
+                    else:
+                        pass
+                except:
+                    pass
+
+        else:
+            pass    
+            
+#--------------------------------
         if op.type == 22:
             if wait["leaveRoom"] == True:
                 cl.leaveRoom(op.param1)
@@ -1269,27 +1340,27 @@ def bot(op):
             elif msg.text in ["Status","Set","Set view","Cek"]:
               if msg.from_ in admin:
                 md = "⭐Status Proteksi⭐\n*============*\n"
-                if wait["Protectcancel"] == True: md+="[•]Protect Cancel [On]\n"
-                else: md+="[•]Protect Cancel [Off]\n"
-                if wait["Protectjoin"] == True: md+="[•]Protect Group [On]\n"
+                if wait["Protectcancel"] == False: md+="[•]Protect Cancel [Off]\n"
+                else: md+="[•]Protect Cancel [On]\n"
+                if wait["Protectjoin"] == False: md+="[•]Protect Group [On]\n"
                 else: md+="[•]Protect Group [Off]\n"
-                if wait["Protectgr"] == True: md+="[•]Protect QR [On]\n"
+                if wait["Protectgr"] == False: md+="[•]Protect QR [On]\n"
                 else: md+="[•]Protect QR [Off]\n"
-                if wait["Protectcancl"] == True: md+="[•]Protect Invite [On]\n"
+                if wait["Protectcancl"] == False: md+="[•]Protect Invite [On]\n"
                 else: md+="[•]Protect Invite [Off]\n"
-                if wait["contact"] == True: md+="[•]Contact [On]\n"
+                if wait["contact"] == False: md+="[•]Contact [On]\n"
                 else: md+="[•]Contact [Off]\n"
-                if wait["autoJoin"] == True: md+="[•]Auto Join [On]\n"
+                if wait["autoJoin"] == False: md+="[•]Auto Join [On]\n"
                 else: md +="[•]Auto Join [Off]\n"
-                if wait["autoCancel"]["on"] == True:md+="[•]Group Cancel " + str(wait["autoCancel"]["members"]) + "\n"
+                if wait["autoCancel"]["on"] == False:md+="[•]Group Cancel " + str(wait["autoCancel"]["members"]) + "\n"
                 else: md+= "[•]Group Cancel [Off]\n"
-                if wait["leaveRoom"] == True: md+="[•]Auto Leave [On]\n"
+                if wait["leaveRoom"] == False: md+="[•]Auto Leave [On]\n"
                 else: md+=" Auto Leave [Off]\n"
-                if wait["timeline"] == True: md+="[•]Share [On]\n"
+                if wait["timeline"] == False: md+="[•]Share [On]\n"
                 else:md+="[•]Share [Off]\n"
-                if wait["autoAdd"] == True: md+="[•]Auto Add [On]\n"
+                if wait["autoAdd"] == False: md+="[•]Auto Add [On]\n"
                 else:md+="[•]Auto Add [Off]\n"
-                if wait["commentOn"] == True: md+="[•]Comment [On]\n"
+                if wait["commentOn"] == False: md+="[•]Comment [On]\n"
                 else:md+="[•]Comment [Off]\n*============*\n✰BotTrox BOT✰\n*============*"
                 cl.sendText(msg.to,md)
             elif msg.text in ["Group id","Ginfo"]:
@@ -1575,7 +1646,7 @@ def bot(op):
     #-------------Fungsi Leave Group Finish---------------#
     
     #-------------Fungsi Tag All Start---------------#
-            elif msg.text in ["Sider"]:
+            elif msg.text in ["Tagall","Sider"]:
             	 if msg.from_ in admin:
                   group = cl.getGroup(msg.to)
                   nama = [contact.mid for contact in group.members]
@@ -1601,7 +1672,54 @@ def bot(op):
                   try:
                       cl.sendMessage(msg)
                   except Exception as error:
-                    print error
+                      print error
+                      
+            elif "tag" == msg.text.lower():
+            	if msg.from_ in admin:
+                 group = cl.getGroup(msg.to)
+                 nama = [contact.mid for contact in group.members]
+                 nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
+                 if jml <= 100:
+                    summon(msg.to, nama)
+                 if jml > 100 and jml < 200:
+                    for i in range(0, 99):
+                        nm1 += [nama[i]]
+                    summon(msg.to, nm1)
+                    for j in range(100, len(nama)-1):
+                        nm2 += [nama[j]]
+                    summon(msg.to, nm2)
+                 if jml > 200  and jml < 500:
+                    for i in range(0, 99):
+                        nm1 += [nama[i]]
+                    summon(msg.to, nm1)
+                    for j in range(100, 199):
+                        nm2 += [nama[j]]
+                    summon(msg.to, nm2)
+                    for k in range(200, 299):
+                        nm3 += [nama[k]]
+                    summon(msg.to, nm3)
+                    for l in range(300, 399):
+                        nm4 += [nama[l]]
+                    summon(msg.to, nm4)
+                    for m in range(400, len(nama)-1):
+                        nm5 += [nama[m]]
+                    summon(msg.to, nm5)
+                 if jml > 500:
+                     print "Terlalu Banyak Men 500+"
+                 cnt = Message()
+                 cnt.text = "Jumlah:\n" + str(jml) +  " Members"
+                 cnt.to = msg.to
+                 cl.sendMessage(cnt)
+                 xname = cl.getContact(msg.from_).displayName
+                 cl.sendText(msg.to,"Ada pemberitahuan dari kak "+xname+"\nJangan Pada diam Ya kak  \nJangan Juga sider   (｀・ω・´)\n \n"  +  datetime.now().strftime('%H:%M:%S'))
+                 #msg.contentType = 13
+                 #cl.sendText(msg.to,"PEMBUAT BOT\n🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨")
+                 #msg.contentMetadata = {'mid': 'u1608ae21e5de2547b5fa8707b21ca220'}
+                 #cl.sendMessage(msg)
+                else:   
+                  if wait["tagall"] == True:  
+                       xname = cl.getContact(msg.from_).displayName
+                       cl.sendText(msg.to,"Maaf, @"+xname+"\nUtk sementara Tagall Khusus Admin Dikarenakan Terlalu Banyak spam \n\n"  +  datetime.now().strftime('%H:%M:%S'))
     #-------------Fungsi Tag All Finish---------------#
     #-------------Tag All Test------------------------#
     #-------------------------------------------------#
@@ -1899,6 +2017,123 @@ def bot(op):
             elif msg.text in ["Welcome"]:
                 ki.sendText(msg.to,"Selamat datang di Group Kami")
                 ki.sendText(msg.to,"Jangan nakal ok!")
+   #--------------------------------
+            elif msg.text.lower() == 'runtime':
+              if msg.from_ in admin:
+                cl.sendText(msg.to,"「Please wait..」\nType  :Loading...\nStatus : Loading...")
+                eltime = time.time() - mulai
+                van = "Type : Bot Sedang Berjalan \nStatus : Aktif \n⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱ sudah berjalan selama " + waktu(eltime)
+                cl.sendText(msg.to,van)   
+  #----------------------------------
+            elif "Waktu" in msg.text:
+              if msg.from_ in admin:
+	    	       wait2['setTime'][msg.to] = datetime.today().strftime('TANGGAL : %Y-%m-%d \nHARI : %A \nJAM : %H:%M:%S')
+	               cl.sendText(msg.to, "         Waktu/Tanggal\n\n" + (wait2['setTime'][msg.to]))
+	               cl.sendText(msg.to, "Maafin Satria Jika salah Ya kak\n(｀・ω・´)\n \n"  +  datetime.now().strftime('%H:%M:%S'))
+	
+            elif msg.text in ["Friendlist"]:
+              if msg.from_ in admin:
+                contactlist = cl.getAllContactIds()
+                kontak = cl.getContacts(contactlist)
+                num=1
+                msgs="══════List Friend═══════"
+                for ids in kontak:
+                    msgs+="\n[%i] %s" % (num, ids.displayName)
+                    num=(num+1)
+                msgs+="\n══════List Friend═══════\n\nTotal Friend : %i" % len(kontak)
+                cl.sendText(msg.to, msgs)
+
+            elif msg.text in ["Memlist"]:
+              if msg.from_ in admin:   
+                kontak = cl.getGroup(msg.to)
+                group = kontak.members
+                num=1
+                msgs="══════List Member═�����═════-"
+                for ids in group:
+                    msgs+="\n[%i] %s" % (num, ids.displayName)
+                    num=(num+1)
+                msgs+="\n══════List Member═══════\n\nTotal Members : %i" % len(group)
+                cl.sendText(msg.to, msgs)
+#-------------------------------------------------
+            elif "Sider on" in msg.text:
+	      if msg.from_ in admin:
+                try:
+                    del cctv['point'][msg.to]
+                    del cctv['sidermem'][msg.to]
+                    del cctv['cyduk'][msg.to]
+                except:
+                    pass
+                cctv['point'][msg.to] = msg.id
+                cctv['sidermem'][msg.to] = ""
+                cctv['cyduk'][msg.to]=True
+                wait["Sider"] = True
+                cl.sendText(msg.to,"🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨\nSet reading point:\n" + datetime.now().strftime('%H:%M:%S'))
+                
+            elif "Sider off" in msg.text:
+	      if msg.from_ in admin:
+                if msg.to in cctv['point']:
+                    cctv['cyduk'][msg.to]=False
+                    wait["Sider"] = False
+                    cl.sendText(msg.to, "🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨\nDelete reading point:\n" + datetime.now().strftime('%H:%M:%S'))
+                else:
+                    cl.sendText(msg.to, "🇲🇨⊰์◉⊱B❂TT❂X B❂T⊰์◉⊱🇲🇨\nDelete reading point:\n" + datetime.now().strftime('%H:%M:%S'))
+
+            elif "sider" == msg.text.lower():
+                    if msg.to in wait2['readPoint']:
+                        if wait2["ROM"][msg.to].items() == []:
+                             cl.sendText(msg.to, "Sider:\nNone")
+                        else:
+                            chiya = []
+                            for rom in wait2["ROM"][msg.to].items():
+                                chiya.append(rom[1])
+                               
+                            cmem = cl.getContacts(chiya)
+                            zx = ""
+                            zxc = ""
+                            zx2 = []
+                            xpesan = 'Lurkers:\n'
+                        for x in range(len(cmem)):
+                                xname = str(cmem[x].displayName)
+                                pesan = ''
+                                pesan2 = pesan+"@a\n"
+                                xlen = str(len(zxc)+len(xpesan))
+                                xlen2 = str(len(zxc)+len(pesan2)+len(xpesan)-1)
+                                zx = {'S':xlen, 'E':xlen2, 'M':cmem[x].mid}
+                                zx2.append(zx)
+                                zxc += pesan2
+                                msg.contentType = 0
+           
+                        print zxc
+                        msg.text = xpesan+ zxc + "\nLurking time: %s\nCurrent time: %s"%(wait2['setTime'][msg.to],datetime.now().strftime('%H:%M:%S'))
+                        lol ={'MENTION':str('{"MENTIONEES":'+json.dumps(zx2).replace(' ','')+'}')}
+                        print lol
+                        msg.contentMetadata = lol
+                        try:
+                          cl.sendMessage(msg)
+                        except Exception as error:
+                              print error
+                        pass
+               
+           
+                    else:
+                        cl.sendText(msg.to, "Lurking has not been set.")
+                        
+            elif msg.text.lower() == 'time':
+              if msg.from_ in admin:
+                timeNow = datetime.now()
+                timeHours = datetime.strftime(timeNow,"(%H:%M)")
+                day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
+                hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+                bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+                inihari = datetime.today()
+                hr = inihari.strftime('%A')
+                bln = inihari.strftime('%m')
+                for i in range(len(day)):
+                    if hr == day[i]: hasil = hari[i]
+                for k in range(0, len(bulan)):
+                    if bln == str(k): bulan = blan[k-1]
+                rst = hasil + ", " + inihari.strftime('%d') + " - " + bln + " - " + inihari.strftime('%Y') + "\nJam : [ " + inihari.strftime('%H:%M:%S') + " ]"
+                cl.sendText(msg.to, rst)
 #-----------------------------------------------
             elif msg.text in ["PING","Ping","ping"]:
                 cl.sendText(msg.to,"PONG 􀨁􀄻double thumbs up􏿿􀜁􀅔Har Har􏿿")
